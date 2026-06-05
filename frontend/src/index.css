@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Zerodha Button */
+.signup-btn {
+  background-color: #387ed1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup-btn:hover {
+  background-color: #222;
+}
+footer {
+  background-color: #fbfbfb;
+  border-top: 1px solid #eee;
+  padding-top: 40px;
+}
+.footer-link, .account-link {
+  color: #666;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.footer-link:hover, .account-link:hover {
+  color: #387ed1;
+}
+.footer-disclaimer {
+  font-size: 0.72rem;
+  color: #9b9b9b;
+  line-height: 1.9;
+  margin-top: 40px;
+}
+
+#support-hero {
+  background-color: rgb(56,126,209);
+  color: white;
+}
+
+#supportWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 100px;
+}
+.signup-page {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fbfbfb;
+}
+
+.signup-card {
+  width: 420px;
+  background: white;
+  padding: 38px;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.signup-card h1 {
+  font-size: 28px;
+  color: #424242;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.signup-card p {
+  color: #666;
+  font-size: 15px;
+  margin-bottom: 25px;
+}
+
+.signup-card input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.signup-card input:focus {
+  outline: none;
+  border-color: #387ed1;
+}
+
+.signup-card button {
+  width: 100%;
+  padding: 13px;
+  background: #387ed1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signup-card button:hover {
+  background: #2f6db5;
+}
+
+.login-text {
+  margin-top: 18px;
+}
+
+.login-text a {
+  color: #387ed1;
+  text-decoration: none;
+}
