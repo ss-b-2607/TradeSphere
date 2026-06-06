@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
@@ -10,12 +9,12 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 const authRoute = require("./Routes/AuthRoute");
+const { requireAuth } = require("./Middlewares/RequireAuth");
 
 const app = express();
 
 const url = process.env.MONGO_URL;
 const PORT = process.env.PORT || 3002;
-
 
 app.use(
   cors({
@@ -25,19 +24,24 @@ app.use(
   })
 );
 
-app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/", authRoute);
 
-app.get("/allHoldings", async (req, res) => {
+app.get("/allHoldings", requireAuth, async (req, res) => {
   try {
-    const allHoldings = await HoldingsModel.find({});
+    const allHoldings = await HoldingsModel.find({
+      userId: req.userId,
+    });
+
     res.json(allHoldings);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch holdings" });
+    console.log("Holdings fetch error:", err);
+    res.status(500).json({
+      error: "Failed to fetch holdings",
+    });
   }
 });
 
@@ -46,34 +50,103 @@ app.get("/allPositions", async (req, res) => {
     const allPositions = await PositionsModel.find({});
     res.json(allPositions);
   } catch (err) {
+    console.log("Positions fetch error:", err);
     res.status(500).json({ error: "Failed to fetch positions" });
   }
 });
 
-app.post("/newOrder", async (req, res) => {
+app.post("/newOrder", requireAuth, async (req, res) => {
   try {
+    console.log("New order body:", req.body);
+    console.log("Logged in user:", req.userId);
+
+    const { name, qty, price, mode } = req.body;
+
+    const orderQty = Number(qty);
+    const orderPrice = Number(price);
+
+    if (!name || !orderQty || !orderPrice || !mode) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing order fields",
+      });
+    }
+
     const newOrder = new OrdersModel({
-      name: req.body.name,
-      qty: req.body.qty,
-      price: req.body.price,
-      mode: req.body.mode,
+      userId: req.userId,
+      name,
+      qty: orderQty,
+      price: orderPrice,
+      mode,
     });
 
     await newOrder.save();
 
-    res.send("Order saved!");
+    if (mode === "BUY") {
+      const existingHolding = await HoldingsModel.findOne({
+        userId: req.userId,
+        name,
+      });
+
+      if (existingHolding) {
+        const oldQty = Number(existingHolding.qty);
+        const oldAvg = Number(existingHolding.avg);
+        const newQty = oldQty + orderQty;
+
+        const newAvg =
+          (oldQty * oldAvg + orderQty * orderPrice) / newQty;
+
+        existingHolding.qty = newQty;
+        existingHolding.avg = Number(newAvg.toFixed(2));
+        existingHolding.price = orderPrice;
+        existingHolding.net = "0.00%";
+        existingHolding.day = "0.00%";
+        existingHolding.isLoss = false;
+
+        await existingHolding.save();
+      } else {
+        const newHolding = new HoldingsModel({
+          userId: req.userId,
+          name,
+          qty: orderQty,
+          avg: orderPrice,
+          price: orderPrice,
+          net: "0.00%",
+          day: "0.00%",
+          isLoss: false,
+        });
+
+        await newHolding.save();
+      }
+    }
+
+    res.json({
+      success: true,
+      message: "Order saved successfully",
+      order: newOrder,
+    });
   } catch (err) {
     console.log("Order error:", err);
-    res.status(500).send("Order not saved");
+    res.status(500).json({
+      success: false,
+      message: "Order not saved",
+      error: err.message,
+    });
   }
 });
 
-app.get("/allOrders", async (req, res) => {
+app.get("/allOrders", requireAuth, async (req, res) => {
   try {
-    const orders = await OrdersModel.find({});
+    const orders = await OrdersModel.find({
+      userId: req.userId,
+    });
+
     res.json(orders);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch orders" });
+    console.log("Orders fetch error:", err);
+    res.status(500).json({
+      error: "Failed to fetch orders",
+    });
   }
 });
 
@@ -101,4 +174,3 @@ mongoose
   .catch((err) => {
     console.log("MongoDB connection error:", err);
   });
-  

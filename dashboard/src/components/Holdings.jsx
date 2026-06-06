@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
+import API from "../utils/api";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/allHoldings")
+    API.get("/allHoldings")
       .then((res) => {
         setAllHoldings(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Holdings fetch error:", err);
       });
   }, []);
-  // so that run one time 
 
   const totalInvestment = allHoldings.reduce(
     (sum, stock) => sum + stock.avg * stock.qty,
@@ -88,14 +86,14 @@ const Holdings = () => {
           </thead>
 
           <tbody>
-            {allHoldings.map((stock, index) => {
+            {allHoldings.map((stock) => {
               const curValue = stock.price * stock.qty;
               const pnl = curValue - stock.avg * stock.qty;
               const profClass = pnl >= 0 ? "profit" : "loss";
               const dayClass = stock.isLoss ? "loss" : "profit";
 
               return (
-                <tr key={index}>
+                <tr key={stock._id}>
                   <td className="instrument-name">{stock.name}</td>
                   <td>{stock.qty}</td>
                   <td>₹{stock.avg.toFixed(2)}</td>

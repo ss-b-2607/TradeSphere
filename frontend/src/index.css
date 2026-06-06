@@ -1,38 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  padding-top: 72px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  color: #424242;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-/* Zerodha Button */
 .signup-btn {
   background-color: #387ed1;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
+  padding: 10px 28px;
 }
 
 .signup-btn:hover {
   background-color: #222;
 }
+
 footer {
   background-color: #fbfbfb;
   border-top: 1px solid #eee;
-  padding-top: 40px;
+  padding: 40px 20px 20px;
 }
-.footer-link, .account-link {
+
+.footer-link,
+.account-link {
   color: #666;
   text-decoration: none;
   display: block;
@@ -40,9 +59,11 @@ footer {
   font-size: 0.95rem;
 }
 
-.footer-link:hover, .account-link:hover {
+.footer-link:hover,
+.account-link:hover {
   color: #387ed1;
 }
+
 .footer-disclaimer {
   font-size: 0.72rem;
   color: #9b9b9b;
@@ -51,34 +72,40 @@ footer {
 }
 
 #support-hero {
-  background-color: rgb(56,126,209);
+  background-color: rgb(56, 126, 209);
   color: white;
 }
 
 #supportWrapper {
   display: flex;
   justify-content: space-between;
-  margin: 0 100px;
+  gap: 40px;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 24px;
 }
+
 .signup-page {
-  min-height: 85vh;
+  min-height: calc(100vh - 72px);
   display: flex;
   justify-content: center;
   align-items: center;
   background: #fbfbfb;
+  padding: 40px 20px;
 }
 
 .signup-card {
-  width: 420px;
+  width: 100%;
+  max-width: 420px;
   background: white;
-  padding: 38px;
+  padding: clamp(24px, 5vw, 38px);
   border-radius: 10px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
 .signup-card h1 {
-  font-size: 28px;
+  font-size: clamp(22px, 4vw, 28px);
   color: #424242;
   font-weight: 500;
   margin-bottom: 10px;
@@ -86,8 +113,9 @@ footer {
 
 .signup-card p {
   color: #666;
-  font-size: 15px;
+  font-size: clamp(14px, 2vw, 15px);
   margin-bottom: 25px;
+  line-height: 1.6;
 }
 
 .signup-card input {
@@ -126,4 +154,81 @@ footer {
 .login-text a {
   color: #387ed1;
   text-decoration: none;
+}
+
+@media (max-width: 1024px) {
+  #supportWrapper {
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  footer .row {
+    row-gap: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 68px;
+  }
+
+  .navbar-brand img {
+    width: 110px !important;
+  }
+
+  .navbar-nav {
+    padding: 12px 0;
+  }
+
+  .nav-item {
+    margin: 4px 0 !important;
+  }
+
+  #supportWrapper {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+
+  .signup-page {
+    align-items: flex-start;
+    padding-top: 50px;
+  }
+
+  .signup-card {
+    max-width: 100%;
+  }
+
+  footer {
+    text-align: left;
+  }
+
+  .footer-disclaimer {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-card {
+    padding: 22px 18px;
+    border-radius: 8px;
+  }
+
+  .signup-card h1 {
+    font-size: 22px;
+  }
+
+  .signup-card input,
+  .signup-card button {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .signup-btn {
+    width: 100%;
+  }
+
+  footer {
+    padding: 32px 16px 18px;
+  }
 }

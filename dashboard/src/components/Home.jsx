@@ -5,6 +5,7 @@ import API from "../utils/api";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     API.post("/")
@@ -12,6 +13,7 @@ const Home = () => {
         if (!res.data.status) {
           window.location.href = "http://localhost:3000/login";
         } else {
+          setUser(res.data.user);
           setLoading(false);
         }
       })
@@ -38,10 +40,10 @@ const Home = () => {
 
   return (
     <>
-      <TopBar />
-      <Dashboard />
+      <TopBar user={user} />
+      <Dashboard user={user} />
     </>
   );
 };
-export default Home;
 
+export default Home;

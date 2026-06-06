@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/api";
 import "./Orders.css";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/allOrders").then((res) => {
-      setOrders(res.data);
-    });
+    API.get("/allOrders")
+      .then((res) => {
+        setOrders(res.data);
+      })
+      .catch((err) => {
+        console.log("Orders fetch error:", err);
+      });
   }, []);
 
   return (

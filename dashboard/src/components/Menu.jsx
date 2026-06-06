@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../utils/api";
 
-const Menu = () => {
+const Menu = ({ user }) => {
   const [selectedMenu, setSelectedMenu] = useState(0);
 
   const handleMenuClick = (index) => {
@@ -21,6 +21,15 @@ const Menu = () => {
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
+
+  const initials = user?.username
+    ? user.username
+        .split(" ")
+        .map((word) => word[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    : "TS";
 
   return (
     <div className="menu-container">
@@ -82,11 +91,16 @@ const Menu = () => {
         <hr />
 
         <div className="profile">
-          <div className="avatar">SS</div>
+          <div className="avatar">{initials}</div>
 
           <div className="user-info">
-            <p className="username">Sheetal</p>
-            <span className="userid">TradeSphere User</span>
+            <p className="username">
+              {user?.username || "TradeSphere User"}
+            </p>
+
+            <span className="userid">
+              {user?.email || "Loading..."}
+            </span>
           </div>
 
           <button

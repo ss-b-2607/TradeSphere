@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 
 import GeneralContext from "./GeneralContext";
+import API from "../utils/api";
 import "./BuyActionWindow.css";
 
 const BuyActionWindow = ({ uid }) => {
@@ -12,16 +12,24 @@ const BuyActionWindow = ({ uid }) => {
 
   const handleBuyClick = async () => {
     try {
-      await axios.post("http://localhost:3002/newOrder", {
+      if (Number(stockPrice) <= 0 || Number(stockQuantity) <= 0) {
+        alert("Please enter valid quantity and price");
+        return;
+      }
+      const res = await API.post("/newOrder", {
         name: uid,
-        qty:stockQuantity,
-        price: stockPrice,
+        qty: Number(stockQuantity),
+        price: Number(stockPrice),
         mode: "BUY",
       });
 
-      generalContext.closeBuyWindow();
+      if (res.data.success) {
+        generalContext.closeBuyWindow();
+        window.location.reload();
+      }
     } catch (err) {
-      console.log(err);
+      console.log("Buy order failed:", err);
+      alert("Buy order failed");
     }
   };
 
@@ -54,7 +62,10 @@ const BuyActionWindow = ({ uid }) => {
       </div>
 
       <div className="buy-footer">
-        <p>Margin required ₹140.65</p>
+        <p>
+          Margin required ₹
+          {(Number(stockQuantity) * Number(stockPrice)).toFixed(2)}
+        </p>
 
         <div className="footer-buttons">
           <button className="buy-btn" onClick={handleBuyClick}>

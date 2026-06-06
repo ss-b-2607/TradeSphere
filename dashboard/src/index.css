@@ -1382,3 +1382,322 @@ body {
   margin-top: 18px;
   text-align: center;
 }
+
+/* ================= RESPONSIVE PATCH ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* laptops/tablets */
+@media (max-width: 1024px) {
+  .topbar-container {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .indices-container,
+  .menu-container {
+    width: 100%;
+    min-width: 100%;
+    flex-basis: auto;
+  }
+
+  .indices-container {
+    height: 54px;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .menu-container {
+    height: auto;
+    padding: 10px 16px;
+    overflow-x: auto;
+  }
+
+  .menus {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .menus ul {
+    display: flex;
+    white-space: nowrap;
+  }
+
+  .menus li {
+    margin-right: 18px;
+  }
+
+  .dashboard-container {
+    height: auto;
+    min-height: calc(100vh - 110px);
+  }
+
+  .watchlist-container {
+    width: 300px;
+    min-width: 300px;
+  }
+
+  .content {
+    padding: 24px;
+  }
+
+  .summary-grid,
+  .funds-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .topbar-container {
+    position: relative;
+  }
+
+  .indices-container {
+    padding: 8px 10px;
+    justify-content: space-between;
+  }
+
+  .nifty,
+  .sensex {
+    flex-basis: 50%;
+    justify-content: center;
+  }
+
+  .index,
+  .index-points,
+  .percent {
+    font-size: 11px;
+  }
+
+  .menu-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .logo {
+    width: 32px;
+  }
+
+  .menus {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menus ul {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .profile {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .dashboard-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .watchlist-container {
+    width: 100%;
+    min-width: 100%;
+    height: 330px;
+    flex-basis: auto;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .watchlist-number {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 8px 0;
+  }
+
+  .content {
+    width: 100%;
+    flex-basis: auto;
+    padding: 20px 14px;
+    overflow-x: hidden;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 18px;
+  }
+
+  .col {
+    flex-basis: 100%;
+    width: 100%;
+  }
+
+  .data {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .summary-grid,
+  .portfolio-summary,
+  .funds-grid,
+  .apps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card,
+  .portfolio-card,
+  .funds-card,
+  .app-card,
+  .chart-section {
+    padding: 18px;
+  }
+
+  .summary-main h3 {
+    font-size: 32px;
+  }
+
+  .order-table,
+  .holdings-table,
+  .orders-card {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .order-table table,
+  .holdings-table table,
+  .orders-table {
+    min-width: 720px;
+  }
+
+  .orders-page {
+    height: auto;
+    padding: 20px 0;
+    align-items: flex-start;
+  }
+
+  .funds-header,
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .funds-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 9px 14px;
+    font-size: 12px;
+  }
+
+  .watchlist-actions {
+    position: static;
+    transform: none;
+    margin-left: 10px;
+    background: transparent;
+  }
+
+  .item {
+    gap: 10px;
+  }
+
+  .item-info {
+    min-width: auto;
+  }
+}
+
+/* small phones */
+@media (max-width: 480px) {
+  .indices-container {
+    flex-direction: column;
+    height: auto;
+    gap: 6px;
+  }
+
+  .nifty,
+  .sensex {
+    width: 100%;
+  }
+
+  .menus li {
+    margin-right: 14px;
+  }
+
+  .menu {
+    font-size: 12px;
+  }
+
+  .profile {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .profile .username {
+    font-size: 12px;
+  }
+
+  .userid {
+    font-size: 11px;
+  }
+
+  .content {
+    padding: 16px 10px;
+  }
+
+  .watchlist-container {
+    height: 300px;
+  }
+
+  .search {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .list li {
+    padding: 10px;
+  }
+
+  .item {
+    font-size: 12px;
+  }
+
+  .watch-btn {
+    width: 28px;
+    height: 24px;
+    font-size: 10px;
+  }
+
+  .summary-main h3 {
+    font-size: 28px;
+  }
+
+  .portfolio-card h5 {
+    font-size: 20px;
+  }
+
+  .auth-box {
+    width: 92%;
+    padding: 24px;
+  }
+}
