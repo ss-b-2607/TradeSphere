@@ -23,7 +23,8 @@ function Login() {
 
       if (res.data.success) {
         alert("Login successful");
-        window.location.href = "http://localhost:5173";
+        window.location.href =
+  "https://tradesphere-dashboard-lfe3.onrender.com";
       } else {
         alert(res.data.message || "Invalid credentials");
       }

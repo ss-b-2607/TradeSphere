@@ -18,9 +18,14 @@ const PORT = process.env.PORT || 3002;
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app",
+      "https://tradesphere-dashboard-lfe3.onrender.com",
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
