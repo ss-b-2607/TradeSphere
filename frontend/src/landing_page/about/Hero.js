@@ -27,7 +27,7 @@ function Hero() {
                 In addition, we run a number of popular open online educational and community initiatives to empower retail traders and investors.
             </p>
             <p>
-                <a href="#" target="_blank" rel="noopener noreferrer"
+                <a href="/" target="_blank" rel="noopener noreferrer"
                 style={{ textDecoration: 'none', color: '#007bff' }}>
                     Rainmatter </a>, our fintech fund and incubator, has invested in several fintech startups with the goal of growing the Indian capital markets.
                

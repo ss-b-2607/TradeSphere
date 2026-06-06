@@ -18,7 +18,7 @@ function Stats() {
                </div>
 
                <div className="col-6 p-5">
-                   <img src="media/images/ecosystem.png" style={{width:"100%"}}/>
+                   <img src="media/images/ecosystem.png" alt="stats" style={{width:"100%"}}/>
               
 
                <div className="text-center mt-5">

@@ -176,7 +176,7 @@ function ChargesTable() {
 
       <p className="text-center fs-3 my-5 text-muted">
         <a
-          href="#"
+          href="/pricing"
           className="text-decoration-none"
           style={{ color: "#387ed1" }}
         >
