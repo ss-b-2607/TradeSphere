@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import API from "../../api";
 
 const DASHBOARD_URL =
-  "https://trade-sphere-beta.vercel.app/";
+  "https://trade-sphere-beta.vercel.app/dashboard";
 
 function Login() {
   const [input, setInput] = useState({

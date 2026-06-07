@@ -24,7 +24,7 @@ function Signup() {
 
       if (res.data.success) {
         alert("Signup successful");
-      window.location.href = "https://trade-sphere-beta.vercel.app/";
+      window.location.href = "https://trade-sphere-beta.vercel.app/dashboard";
       } else {
         alert(res.data.message || "Signup failed");
       }
