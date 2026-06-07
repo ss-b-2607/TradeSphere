@@ -23,6 +23,7 @@ app.use(
       "http://localhost:5173",
       "https://trade-sphere-beta.vercel.app",
       "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app",
+      "https://trade-sphere-ss-b-2607s-projects.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -50,9 +51,12 @@ app.get("/allHoldings", requireAuth, async (req, res) => {
   }
 });
 
-app.get("/allPositions", async (req, res) => {
+app.get("/allPositions", requireAuth, async (req, res) => {
   try {
-    const allPositions = await PositionsModel.find({});
+    const allPositions = await PositionsModel.find({
+      userId: req.userId,
+    });
+
     res.json(allPositions);
   } catch (err) {
     console.log("Positions fetch error:", err);
@@ -156,7 +160,7 @@ app.get("/allOrders", requireAuth, async (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
-    httpOnly: false,
+    httpOnly: true,
     secure: true,
     sameSite: "none",
   });

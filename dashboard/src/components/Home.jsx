@@ -3,7 +3,9 @@ import Dashboard from "./Dashboard";
 import TopBar from "./TopBar";
 import API from "../utils/api";
 
-const LOGIN_URL = "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/login";
+const LOGIN_URL =
+  "https://trade-sphere-ss-b-2607s-projects.vercel.app/login";
+
 const Home = () => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -24,19 +26,7 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontSize: "20px",
-        }}
-      >
-        Loading TradeSphere...
-      </div>
-    );
+    return <div>Loading TradeSphere...</div>;
   }
 
   return (

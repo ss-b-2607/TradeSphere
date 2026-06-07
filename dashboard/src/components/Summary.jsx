@@ -1,11 +1,11 @@
 import React from "react";
 
-const Summary = () => {
+const Summary = ({ user }) => {
   return (
     <div className="summary-page">
       <div className="username">
-        <h6>Hi, Sheetal!</h6>
-        <p>Welcome to your Kite dashboard</p>
+        <h6>Hi, {user?.username || "Trader"}!</h6>
+        <p>Welcome to your TradeSphere dashboard</p>
       </div>
 
       <div className="summary-grid">

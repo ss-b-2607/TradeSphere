@@ -24,7 +24,7 @@ function Signup() {
 
       if (res.data.success) {
         alert("Signup successful");
-      window.location.href = "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/dashboard";;
+      window.location.href = "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/dashboard";
       } else {
         alert(res.data.message || "Signup failed");
       }

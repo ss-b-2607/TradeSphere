@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../utils/api";
 
 const Positions = () => {
-   const [allPositions, setAllPositions] = useState([]);
+  const [allPositions, setAllPositions] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/allPositions")
+    API.get("/allPositions")
       .then((res) => {
         setAllPositions(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Positions fetch error:", err);
       });
   }, []);
 
