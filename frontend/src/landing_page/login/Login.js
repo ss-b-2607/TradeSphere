@@ -18,8 +18,12 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Login form submitted:", input);
+
     try {
       const res = await API.post("/login", input);
+
+      console.log("Login response:", res.data);
 
       if (res.data.success) {
         alert("Login successful");
@@ -28,7 +32,7 @@ function Login() {
         alert(res.data.message || "Invalid credentials");
       }
     } catch (err) {
-      console.log(err);
+      console.log("Login failed error:", err);
       alert("Login failed");
     }
   };
