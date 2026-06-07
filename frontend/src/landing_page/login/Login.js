@@ -27,7 +27,7 @@ function Login() {
 
       if (res.data.success) {
         alert("Login successful");
-        window.location.href = "https://tradesphere-dashboard.vercel.app";
+        window.location.href = "https://tradesphere-dashboard.vercel.app/";
       } else {
         alert(res.data.message || "Invalid credentials");
       }
