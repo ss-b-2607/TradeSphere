@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../api";
 
+const DASHBOARD_URL =
+  "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/";
+
 function Login() {
   const [input, setInput] = useState({
     email: "",
@@ -18,16 +21,12 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Login form submitted:", input);
-
     try {
       const res = await API.post("/login", input);
 
-      console.log("Login response:", res.data);
-
       if (res.data.success) {
         alert("Login successful");
-        window.location.href = "https://tradesphere-dashboard.vercel.app/";
+        window.location.href = DASHBOARD_URL;
       } else {
         alert(res.data.message || "Invalid credentials");
       }

@@ -21,12 +21,12 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:5173",
+      "https://trade-sphere-beta.vercel.app",
       "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app",
-      "https://tradesphere-dashboard.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-  }),
+  })
 );
 
 app.use(express.json());
@@ -156,8 +156,9 @@ app.get("/allOrders", requireAuth, async (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
-    httpOnly: true,
-    sameSite: "lax",
+    httpOnly: false,
+    secure: true,
+    sameSite: "none",
   });
 
   res.json({
