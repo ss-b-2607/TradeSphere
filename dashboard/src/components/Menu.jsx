@@ -12,7 +12,8 @@ const Menu = ({ user }) => {
   const handleLogout = async () => {
     try {
       await API.post("/logout");
-      window.location.href = "http://localhost:3000/login";
+    window.location.href =
+  "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/login";
     } catch (err) {
       console.log("Logout failed:", err);
       alert("Logout failed");

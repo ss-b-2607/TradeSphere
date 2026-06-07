@@ -11,14 +11,16 @@ const Home = () => {
     API.post("/")
       .then((res) => {
         if (!res.data.status) {
-          window.location.href = "http://localhost:3000/login";
+          window.location.href =
+  "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/login";
         } else {
           setUser(res.data.user);
           setLoading(false);
         }
       })
       .catch(() => {
-        window.location.href = "http://localhost:3000/login";
+       window.location.href =
+  "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/login";
       });
   }, []);
 
