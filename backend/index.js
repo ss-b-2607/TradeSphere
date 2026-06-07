@@ -22,11 +22,11 @@ app.use(
       "http://localhost:3000",
       "http://localhost:5173",
       "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app",
-      "https://tradesphere-dashboard-lfe3.onrender.com",
+      "https://tradesphere-dashboard.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-  })
+  }),
 );
 
 app.use(express.json());
@@ -98,8 +98,7 @@ app.post("/newOrder", requireAuth, async (req, res) => {
         const oldAvg = Number(existingHolding.avg);
         const newQty = oldQty + orderQty;
 
-        const newAvg =
-          (oldQty * oldAvg + orderQty * orderPrice) / newQty;
+        const newAvg = (oldQty * oldAvg + orderQty * orderPrice) / newQty;
 
         existingHolding.qty = newQty;
         existingHolding.avg = Number(newAvg.toFixed(2));

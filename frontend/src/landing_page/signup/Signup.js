@@ -24,8 +24,7 @@ function Signup() {
 
       if (res.data.success) {
         alert("Signup successful");
-       window.location.href =
-  "https://tradesphere-dashboard-lfe3.onrender.com";
+      window.location.href = "https://tradesphere-dashboard.vercel.app";
       } else {
         alert(res.data.message || "Signup failed");
       }
