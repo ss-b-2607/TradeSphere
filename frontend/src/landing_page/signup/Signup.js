@@ -29,7 +29,7 @@ function Signup() {
         localStorage.setItem("tradesphereUser", JSON.stringify(res.data.user));
 
         alert("Signup successful");
-        window.location.href = DASHBOARD_URL;
+        window.location.href = `${DASHBOARD_URL}?token=${res.data.token}`;
       } else {
         alert(res.data.message || "Signup failed");
       }

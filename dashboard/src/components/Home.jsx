@@ -10,7 +10,15 @@ const Home = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("tradesphereToken");
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get("token");
+
+    if (tokenFromUrl) {
+      localStorage.setItem("tradesphereToken", tokenFromUrl);
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    const token = tokenFromUrl || localStorage.getItem("tradesphereToken");
 
     if (!token) {
       window.location.href = LOGIN_URL;
