@@ -21,7 +21,7 @@ function Signup() {
     alert("Signup successful");
 
     window.location.href =
-      "http://localhost:5173/";
+  "https://tradesphere-dashboard.vercel.app";
   };
 
   return (

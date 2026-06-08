@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../api";
 
-const DASHBOARD_URL = "http://localhost:5173/";
+const DASHBOARD_URL =
+  "https://tradesphere-dashboard.vercel.app";
 
 function Login() {
   const [input, setInput] = useState({

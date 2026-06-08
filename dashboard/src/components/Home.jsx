@@ -3,7 +3,8 @@ import Dashboard from "./Dashboard";
 import TopBar from "./TopBar";
 import API from "../utils/api";
 
-const LOGIN_URL = "http://localhost:3000/login";
+const LOGIN_URL =
+  "https://trade-sphere-ss-b-2607s-projects.vercel.app/login";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);

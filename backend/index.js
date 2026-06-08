@@ -171,10 +171,10 @@ app.post("/newOrder", requireAuth, async (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
-    httpOnly: true,
-    secure: false,
-    sameSite: "lax",
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
 
   res.json({
     success: true,
