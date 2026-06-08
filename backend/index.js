@@ -23,12 +23,12 @@ app.use(
       "http://localhost:3000",
       "http://localhost:5173",
       "https://trade-sphere-beta.vercel.app",
-      "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app",
       "https://trade-sphere-ss-b-2607s-projects.vercel.app",
+      "https://tradesphere-dashboard.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
-  })
+  }),
 );
 
 app.use(express.json());
@@ -127,8 +127,7 @@ app.post("/newOrder", requireAuth, async (req, res) => {
         const oldAvg = Number(existingHolding.avg);
         const newQty = oldQty + orderQty;
 
-        const newAvg =
-          (oldQty * oldAvg + orderQty * orderPrice) / newQty;
+        const newAvg = (oldQty * oldAvg + orderQty * orderPrice) / newQty;
 
         existingHolding.qty = newQty;
         existingHolding.avg = Number(newAvg.toFixed(2));
@@ -171,10 +170,10 @@ app.post("/newOrder", requireAuth, async (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-});
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
 
   res.json({
     success: true,
