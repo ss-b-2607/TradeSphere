@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://tradesphere-tcqm.onrender.com",
+   baseURL: "http://localhost:3002",
   withCredentials: true,
 });
 export default API;

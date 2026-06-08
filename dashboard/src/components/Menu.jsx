@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../utils/api";
 
 const Menu = ({ user }) => {
   const [selectedMenu, setSelectedMenu] = useState(0);
@@ -9,15 +8,9 @@ const Menu = ({ user }) => {
     setSelectedMenu(index);
   };
 
-  const handleLogout = async () => {
-    try {
-      await API.post("/logout");
+  const handleLogout = () => {
     window.location.href =
-  "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/login";
-    } catch (err) {
-      console.log("Logout failed:", err);
-      alert("Logout failed");
-    }
+     "http://localhost:3000/login";
   };
 
   const menuClass = "menu";
@@ -95,12 +88,9 @@ const Menu = ({ user }) => {
           <div className="avatar">{initials}</div>
 
           <div className="user-info">
-            <p className="username">
-              {user?.username || "TradeSphere User"}
-            </p>
-
+            <p className="username">{user?.username || "TradeSphere User"}</p>
             <span className="userid">
-              {user?.email || "Loading..."}
+              {user?.email || "user@tradesphere.com"}
             </span>
           </div>
 
