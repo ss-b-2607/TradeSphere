@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../api";
 
-const DASHBOARD_URL =
-  "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/dashboard";
+const DASHBOARD_URL = "http://localhost:5173/";
 
 function Login() {
   const [input, setInput] = useState({
@@ -28,10 +27,10 @@ function Login() {
         alert("Login successful");
         window.location.href = DASHBOARD_URL;
       } else {
-        alert(res.data.message || "Invalid credentials");
+        alert(res.data.message || "Login failed");
       }
     } catch (err) {
-      console.log("Login failed error:", err);
+      console.log("Login error:", err);
       alert("Login failed");
     }
   };

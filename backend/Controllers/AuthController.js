@@ -1,17 +1,10 @@
 const User = require("../model/UserModel");
-const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcryptjs");
-
-const cookieOptions = {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  maxAge: 3 * 24 * 60 * 60 * 1000,
-};
+const { createSecretToken } = require("../util/SecretToken");
 
 module.exports.Signup = async (req, res) => {
   try {
-    const { email, password, username, createdAt } = req.body;
+    const { email, password, username } = req.body;
 
     if (!email || !password || !username) {
       return res.status(400).json({
@@ -20,7 +13,9 @@ module.exports.Signup = async (req, res) => {
       });
     }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({
+      email: email.toLowerCase().trim(),
+    });
 
     if (existingUser) {
       return res.status(409).json({
@@ -30,25 +25,29 @@ module.exports.Signup = async (req, res) => {
     }
 
     const user = await User.create({
-      email,
+      username: username.trim(),
+      email: email.toLowerCase().trim(),
       password,
-      username,
-      createdAt,
     });
 
     const token = createSecretToken(user._id);
 
-    res.cookie("token", token, cookieOptions);
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: false,
+  sameSite: "lax",
+  maxAge: 3 * 24 * 60 * 60 * 1000,
+});
 
-    res.status(201).json({
-      success: true,
-      message: "User signed up successfully",
-      user: {
-        id: user._id,
-        email: user.email,
-        username: user.username,
-      },
-    });
+res.status(201).json({
+  success: true,
+  message: "User signed up successfully",
+  user: {
+    id: user._id,
+    username: user.username,
+    email: user.email,
+  },
+});
   } catch (error) {
     console.error("Signup error:", error);
 
@@ -70,37 +69,44 @@ module.exports.Login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      email: email.toLowerCase().trim(),
+    });
 
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "Incorrect password or email",
+        message: "Incorrect email or password",
       });
     }
 
-    const auth = await bcrypt.compare(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
-    if (!auth) {
+    if (!isPasswordCorrect) {
       return res.status(401).json({
         success: false,
-        message: "Incorrect password or email",
+        message: "Incorrect email or password",
       });
     }
 
-    const token = createSecretToken(user._id);
+   const token = createSecretToken(user._id);
 
-    res.cookie("token", token, cookieOptions);
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: false,
+  sameSite: "lax",
+  maxAge: 3 * 24 * 60 * 60 * 1000,
+});
 
-    res.status(200).json({
-      success: true,
-      message: "User logged in successfully",
-      user: {
-        id: user._id,
-        email: user.email,
-        username: user.username,
-      },
-    });
+res.status(201).json({
+  success: true,
+  message: "User signed up successfully",
+  user: {
+    id: user._id,
+    username: user.username,
+    email: user.email,
+  },
+});
   } catch (error) {
     console.error("Login error:", error);
 

@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
+
 const authRoute = require("./Routes/AuthRoute");
 const { requireAuth } = require("./Middlewares/RequireAuth");
 
@@ -36,6 +37,13 @@ app.use(cookieParser());
 
 app.use("/", authRoute);
 
+app.get("/health", (req, res) => {
+  res.json({
+    success: true,
+    message: "TradeSphere backend is running",
+  });
+});
+
 app.get("/allHoldings", requireAuth, async (req, res) => {
   try {
     const allHoldings = await HoldingsModel.find({
@@ -60,7 +68,24 @@ app.get("/allPositions", requireAuth, async (req, res) => {
     res.json(allPositions);
   } catch (err) {
     console.log("Positions fetch error:", err);
-    res.status(500).json({ error: "Failed to fetch positions" });
+    res.status(500).json({
+      error: "Failed to fetch positions",
+    });
+  }
+});
+
+app.get("/allOrders", requireAuth, async (req, res) => {
+  try {
+    const orders = await OrdersModel.find({
+      userId: req.userId,
+    });
+
+    res.json(orders);
+  } catch (err) {
+    console.log("Orders fetch error:", err);
+    res.status(500).json({
+      error: "Failed to fetch orders",
+    });
   }
 });
 
@@ -102,7 +127,8 @@ app.post("/newOrder", requireAuth, async (req, res) => {
         const oldAvg = Number(existingHolding.avg);
         const newQty = oldQty + orderQty;
 
-        const newAvg = (oldQty * oldAvg + orderQty * orderPrice) / newQty;
+        const newAvg =
+          (oldQty * oldAvg + orderQty * orderPrice) / newQty;
 
         existingHolding.qty = newQty;
         existingHolding.avg = Number(newAvg.toFixed(2));
@@ -143,26 +169,11 @@ app.post("/newOrder", requireAuth, async (req, res) => {
   }
 });
 
-app.get("/allOrders", requireAuth, async (req, res) => {
-  try {
-    const orders = await OrdersModel.find({
-      userId: req.userId,
-    });
-
-    res.json(orders);
-  } catch (err) {
-    console.log("Orders fetch error:", err);
-    res.status(500).json({
-      error: "Failed to fetch orders",
-    });
-  }
-});
-
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: false,
+    sameSite: "lax",
   });
 
   res.json({

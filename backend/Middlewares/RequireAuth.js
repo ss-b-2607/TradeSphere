@@ -1,26 +1,30 @@
 const jwt = require("jsonwebtoken");
 
 const requireAuth = (req, res, next) => {
-  const token = req.cookies.token;
+  try {
+    const token = req.cookies.token;
 
-  if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: "Not authenticated",
-    });
-  }
-
-  jwt.verify(token, process.env.TOKEN_KEY, (err, data) => {
-    if (err) {
+    if (!token) {
       return res.status(401).json({
         success: false,
-        message: "Invalid token",
+        message: "Not authenticated",
       });
     }
 
-    req.userId = data.id;
+    const decoded = jwt.verify(
+      token,
+      process.env.TOKEN_KEY
+    );
+
+    req.userId = decoded.id;
+
     next();
-  });
+  } catch (err) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token",
+    });
+  }
 };
 
 module.exports = { requireAuth };

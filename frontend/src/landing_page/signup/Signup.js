@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../../api";
 
 function Signup() {
   const [input, setInput] = useState({
@@ -16,22 +15,13 @@ function Signup() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    try {
-      const res = await API.post("/signup", input);
+    alert("Signup successful");
 
-      if (res.data.success) {
-        alert("Signup successful");
-      window.location.href = "https://trade-sphere-ffyhr5gyt-ss-b-2607s-projects.vercel.app/dashboard";
-      } else {
-        alert(res.data.message || "Signup failed");
-      }
-    } catch (err) {
-      console.log(err);
-      alert("Signup failed");
-    }
+    window.location.href =
+      "http://localhost:5173/";
   };
 
   return (
@@ -77,6 +67,6 @@ function Signup() {
       </div>
     </div>
   );
-};
+}
 
 export default Signup;
