@@ -32,23 +32,16 @@ module.exports.Signup = async (req, res) => {
 
     const token = createSecretToken(user._id);
 
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  domain: ".onrender.com",
-  maxAge: 3 * 24 * 60 * 60 * 1000,
-});
-
-res.status(201).json({
-  success: true,
-  message: "User signed up successfully",
-  user: {
-    id: user._id,
-    username: user.username,
-    email: user.email,
-  },
-});
+    res.status(201).json({
+      success: true,
+      message: "User signed up successfully",
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (error) {
     console.error("Signup error:", error);
 
@@ -90,25 +83,18 @@ module.exports.Login = async (req, res) => {
       });
     }
 
-   const token = createSecretToken(user._id);
+    const token = createSecretToken(user._id);
 
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  domain: ".onrender.com",
-  maxAge: 3 * 24 * 60 * 60 * 1000,
-});
-
-res.status(201).json({
-  success: true,
-  message: "User signed up successfully",
-  user: {
-    id: user._id,
-    username: user.username,
-    email: user.email,
-  },
-});
+    res.status(200).json({
+      success: true,
+      message: "User logged in successfully",
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (error) {
     console.error("Login error:", error);
 

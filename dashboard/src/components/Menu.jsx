@@ -9,9 +9,12 @@ const Menu = ({ user }) => {
   };
 
   const handleLogout = () => {
-    window.location.href =
-     "http://localhost:3000/login";
-  };
+  localStorage.removeItem("tradesphereToken");
+  localStorage.removeItem("tradesphereUser");
+
+  window.location.href =
+    "https://trade-sphere-ss-b-2607s-projects.vercel.app/login";
+};
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";

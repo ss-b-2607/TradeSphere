@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import API from "../../api";
 
-const DASHBOARD_URL =
-  "https://tradesphere-dashboard.vercel.app";
+const DASHBOARD_URL = "https://tradesphere-dashboard.vercel.app";
 
 function Login() {
   const [input, setInput] = useState({
@@ -25,6 +24,9 @@ function Login() {
       const res = await API.post("/login", input);
 
       if (res.data.success) {
+        localStorage.setItem("tradesphereToken", res.data.token);
+        localStorage.setItem("tradesphereUser", JSON.stringify(res.data.user));
+
         alert("Login successful");
         window.location.href = DASHBOARD_URL;
       } else {
@@ -49,6 +51,7 @@ function Login() {
             placeholder="Email address"
             value={input.email}
             onChange={handleChange}
+            autoComplete="email"
             required
           />
 
@@ -58,6 +61,7 @@ function Login() {
             placeholder="Password"
             value={input.password}
             onChange={handleChange}
+            autoComplete="current-password"
             required
           />
 

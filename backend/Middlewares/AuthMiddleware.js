@@ -3,24 +3,18 @@ const jwt = require("jsonwebtoken");
 
 module.exports.userVerification = async (req, res) => {
   try {
-    console.log("COOKIE:", req.cookies);
+    const authHeader = req.headers.authorization;
 
-    const token = req.cookies.token;
-
-    if (!token) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.json({
         status: false,
         message: "No token found",
       });
     }
 
+    const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-
-    console.log("DECODED:", decoded);
-
-    const user = await User.findById(decoded.id);
-
-    console.log("USER:", user);
+    const user = await User.findById(decoded.id).select("-password");
 
     if (!user) {
       return res.json({
@@ -38,11 +32,9 @@ module.exports.userVerification = async (req, res) => {
       },
     });
   } catch (err) {
-    console.log("VERIFY ERROR:", err);
-
     return res.json({
       status: false,
-      message: "Invalid token",
+      message: "Invalid or expired token",
     });
   }
 };
