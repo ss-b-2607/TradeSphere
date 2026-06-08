@@ -170,10 +170,11 @@ app.post("/newOrder", requireAuth, async (req, res) => {
 
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  domain: ".onrender.com",
+});
 
   res.json({
     success: true,
