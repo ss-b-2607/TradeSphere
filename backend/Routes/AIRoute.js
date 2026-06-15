@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const {
   generatePortfolioReport,
-} = require("../controllers/AIController");
+} = require("../Controllers/AIController");
 
 router.get(
   "/portfolio-report",
