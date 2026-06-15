@@ -10,6 +10,7 @@ const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 
 const authRoute = require("./Routes/AuthRoute");
+const aiRoute = require("./routes/AIRoute");
 const { requireAuth } = require("./Middlewares/RequireAuth");
 
 const app = express();
@@ -36,6 +37,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/", authRoute);
+app.use("/ai", aiRoute);
+
 
 app.get("/health", (req, res) => {
   res.json({
