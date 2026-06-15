@@ -10,7 +10,7 @@ const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 
 const authRoute = require("./Routes/AuthRoute");
-const aiRoute = require("./routes/AIRoute");
+const aiRoute = require("./Routes/AIRoute");
 const { requireAuth } = require("./Middlewares/RequireAuth");
 
 const app = express();
